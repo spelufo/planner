@@ -4192,6 +4192,26 @@ groups = [
 			}
 		]
 	},
+	// Added this group by hand (copy from G_2)
+	{
+		"id": "G_1321",
+		"min": 1,
+		"max": 1,
+		"previas": [
+			{
+				"id": "1321",
+				"nombre": "PROGRAMACION 2",
+				"actividad": "Examen aprobado",
+				"puntaje": 1
+			},
+			{
+				"id": "CP15",
+				"nombre": "PROGRAMACION II",
+				"actividad": "Examen aprobado",
+				"puntaje": 1
+			}
+		]
+	},
 	{
 		"id": "G_1322C",
 		"min": 1,
@@ -11425,6 +11445,32 @@ groups = [
 	},
 	{
 		"id": "G_LOG",
+		"min": 1,
+		"max": 1,
+		"previas": [
+			{
+				"id": "1027",
+				"nombre": "LOGICA",
+				"actividad": "Curso aprobado",
+				"puntaje": 1
+			},
+			{
+				"id": "CP4",
+				"nombre": "LOGICA",
+				"actividad": "Examen aprobado",
+				"puntaje": 1
+			},
+			{
+				"id": "1010",
+				"nombre": "LOGICA Y COMPUTACION",
+				"actividad": "Curso aprobado",
+				"puntaje": 1
+			}
+		]
+	},
+	// Added this by hand
+	{
+		"id": "G_2 LOG",
 		"min": 1,
 		"max": 1,
 		"previas": [

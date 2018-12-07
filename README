@@ -1,0 +1,1 @@
+Build with `elm make src/Main.elm --output=main.js`, then open index.html in a browser.
