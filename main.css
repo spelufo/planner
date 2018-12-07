@@ -1,0 +1,116 @@
+html, body, #elm {
+	overflow: hidden;
+	height: 100%;
+}
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+
+.udelar {
+	font-size: 12px;
+	font-family: Arimo, sans-serif;
+	height: 100%;
+	vertical-align: top;
+}
+
+.sidebar {
+	display: inline-block;
+	width: 20em;
+	height: 100%;
+}
+
+.main-area {
+	display: inline-block;
+	width: 35%;
+	height: 100%;
+	vertical-align: top;
+	overflow-y: scroll;
+	padding: 1em;
+}
+
+.main-area ul {
+	padding-left: 1em;
+}
+
+.sidebar input {
+	width: calc(20em - 23px);
+	height: 1.5em;
+}
+
+.asigs-list {
+	height: calc(100% - 2em);
+ 	overflow-y: scroll;
+}
+
+.asigs-list .asig {
+	margin: 0.2em;
+}
+
+.selected {
+	background: cyan !important;
+}
+
+.plan {
+	overflow-y: scroll;
+	display: inline-block;
+	width: calc(65% - 20em);
+	height: 100%;
+	vertical-align: top;
+}
+
+.year {
+	border-bottom: 1px solid #ccc;
+}
+
+.exam-period {
+	min-height: 70px;
+	background: #f0f0f0;
+}
+
+.semester {
+	min-height: 70px;
+	/*background: #dde;*/
+}
+
+.activity {
+	margin: 0.2em;
+	width: 200px;
+	display: inline-block;
+	text-align: center;
+}
+
+.course {
+	background: yellow;
+}
+
+.exam {
+	background: gold;
+}
+
+.reqs {
+	font-size: 0.9em;
+	margin-bottom: 1em;
+}
+
+.reqs li {
+	padding: 0.3em;
+	margin-bottom: 2px;
+	/*border: 1px solid #333;*/
+}
+
+.missing-reqs, .req-not-satisfied {
+	background: tomato;
+}
+
+.asig {
+	border: 1px solid #333;
+	padding: 2px;
+}
+
+.area-done, .area-entry-done {
+	background-color: green;
+}

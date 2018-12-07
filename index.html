@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>udelar</title>
+	<meta charset="utf-8" />
+	<script src="main.js"></script>
+	<link rel="stylesheet" type="text/css" href="main.css">
+</head>
+<body>
+	<div id="elm"></div>
+	<script src="plan-ingenieria-electrica.js"></script>
+	<script src="ingenieria-grupos.js"></script>
+	<script src="ingenieria-22-8.js"></script>
+	<script>
+		var app = Elm.Main.init({
+			node: document.getElementById('elm'),
+			flags: {
+				asigs: asigs,
+				groups: groups,
+				area: area,
+			},
+		});
+	</script>
+</body>
+</html>
