@@ -1,5 +1,5 @@
 {
-  "content": "Composición",
+  "content": "ROOT - INGENIERIA EN COMPUTACION - min: 450 creditos",
   "children": [
     {
       "content": "2436 - MATERIAS BASICAS - min: 80 créditos",
@@ -2013,6 +2013,11 @@
         {
           "content": "4756 - A.INTEG,TALLERES,PASANT.Y PROY - min: 45 créditos",
           "children": [
+            {
+              "content": "1780 - TALLER DE ROBOTICA EDUCATIVA - créditos: 6",
+              "children": [],
+              "type": "Materia"
+            },
             {
               "content": "1775 - TALLER DE SISTEMAS EMPRESARIALES - créditos: 15",
               "children": [],

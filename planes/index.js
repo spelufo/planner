@@ -1,11 +1,9 @@
+let fs = require('fs');
+let path = require('path');
 let puppeteer = require('puppeteer-core');
 
-const facultad = 'FING'
-const carrera = 'INGENIERIA ELECTRICA'
-// const carrera = 'INGENIERIA EN COMPUTACION'
-const planYear = '1997'
 
-async function main() {
+async function main(facultad, carrera, planYear, outspec) {
 	let browser = await puppeteer.launch({
 		executablePath: '/usr/bin/chromium',
 		defaultViewport: {
@@ -22,8 +20,11 @@ async function main() {
 	await page.waitFor(1000)
 	await page.evaluate(clickCarrera, carrera, planYear)
 	await page.waitFor(2000)
-	let plan = await page.evaluate(getPlan)
-	process.stdout.write(JSON.stringify(plan, null, 2))
+	let plan = await page.evaluate(getPlan, carrera)
+	fs.writeFileSync(outspec + '.json', JSON.stringify(plan, null, 2))
+	let planTables = planToTables(plan)
+	fs.writeFileSync(outspec + '-areas.tsv', tableToTSV(planTables.areas))
+	fs.writeFileSync(outspec + '-materias.tsv', tableToTSV(planTables.materias))
 	await page.screenshot({path: 'bedelias.png'})
 	await browser.close();
 }
@@ -91,7 +92,7 @@ function clickCarrera(carrera, plan) {
 }
 
 
-function getPlan() {
+function getPlan(carrera) {
 	function getTree(node) {
 		var $node = $(node)
 		var s = $node.children('.ui-treenode-content').text().trim()
@@ -109,8 +110,54 @@ function getPlan() {
 		return {content: s, children: cs, type: t}
 	}
 
-	return getTree($('#datosComposicion .ui-treenode')[0])
+	let tree = getTree($('#datosComposicion .ui-treenode')[0])
+	tree.content = 'ROOT - ' + carrera + ' - min: ' + $('#datosPlan > .DatosBasicos tbody > tr')[0].lastChild.innerText + ' creditos'
+	return tree
 }
 
 
-main()
+function planToTables(plan) {
+	let areas = {}
+	let materias = {}
+
+	function walkPlan(node, area) {
+		let [id, name, credstr] = node.content.split(' - ')
+		let creds = credstr && Number(credstr.split(' ')[1])
+
+		let table = node.type == 'Materia' ? materias : areas
+		let row = [id, name, creds]
+		if (area) row.push(area)
+		table[id] = row
+
+		for (let c of node.children) {
+			walkPlan(c, id)
+		}
+	}
+	walkPlan(plan)
+	return {areas, materias}
+}
+
+
+function tableToTSV(table) {
+	let s = ''
+	for (let row of Object.values(table)) {
+		s += row.join('\t') + '\n'
+	}
+	return s
+}
+
+
+let [_, scriptPath, facultad, carrera, planYear, outspec] = process.argv
+
+if (!facultad || !carrera || !planYear || !outspec) {
+	let scriptName = path.basename(scriptPath)
+	process.stdout.write('usage: node ' + scriptName + ' FACULTAD CARRERA PLANYEAR OUTSPEC\n')
+	process.stdout.write(' e.g.: node ' + scriptName + " FING 'INGENIERIA EN COMPUTACION' 1997 output/ingenieria-en-computaction\n")
+	process.stdout.write('       will output to the files\n')
+	process.stdout.write('           output/ingenieria-en-computaction-areas.csv\n')
+	process.stdout.write('           output/ingenieria-en-computaction-areas.csv\n')
+	process.stdout.write('           output/ingenieria-en-computaction-materias.csv\n')
+	process.exit(1)
+}
+
+main(facultad, carrera, planYear, outspec)
